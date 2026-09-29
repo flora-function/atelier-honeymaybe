@@ -49,22 +49,9 @@ const { title, date, medium, tags, image, description } = piece.data;
           <p class="font-display text-xl text-bark/80 leading-relaxed mb-6">{description}</p>
         )}
 
-        <div class="flex flex-wrap gap-2 mt-4">
-          {tags.map(tag => (
-            <a
-              href={`/archive?tag=${tag}`}
-              class="font-display text-lg bg-mint/50 border-2 border-bark/40 px-2 py-0.5 hover:bg-mint transition-colors"
-            >
-              #{tag}
-            </a>
-          ))}
-        </div>
       </div>
     </div>
 
-    <!-- Nav between pieces (placeholder structure) -->
-    <div class="flex justify-between mt-8">
-      <a href="/archive" class="pixel-btn bg-lavender text-bark">&larr; all work</a>
-    </div>
+
   </div>
 </BaseLayout>

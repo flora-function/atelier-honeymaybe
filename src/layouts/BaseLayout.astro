@@ -14,7 +14,8 @@ const { title, description = 'atelier honeymaybe — a whimsical art archive' } 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <title>{title} | atelier honeymaybe</title>
+    <title>honeymaybe</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>" />
 
     <!-- Pixel fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -31,10 +32,10 @@ const { title, description = 'atelier honeymaybe — a whimsical art archive' } 
 
     <PixelSprites />
     <div class="relative z-10">
-      <header class="bg-cream px-6 pt-12 pb-8 text-center relative overflow-hidden" style="border-bottom: 4px dashed #2d1b00;">
+      <header id="site-header" class="bg-cream px-6 pt-12 pb-8 text-center relative overflow-hidden" style="border-bottom: 4px dashed #2d1b00; position: sticky; top: 0; z-index: 50; transition: padding 0.3s ease;">
 
         <a href="/" class="block no-underline" aria-label="atelier honeymaybe — home">
-          <p class="anim-atelier font-pixel text-bark mb-3" style="font-size: clamp(0.55rem, 1.5vw, 0.9rem); letter-spacing: 0.2em;">
+          <p class="anim-atelier shrink-hide font-pixel text-bark mb-3" style="font-size: clamp(0.55rem, 1.5vw, 0.9rem); letter-spacing: 0.2em;">
             atelier
           </p>
           <h1 class="anim-title big-title leading-none">
@@ -49,7 +50,7 @@ const { title, description = 'atelier honeymaybe — a whimsical art archive' } 
         </nav>
 
         <!-- header sprites -->
-        <div class="pointer-events-none" aria-hidden="true">
+        <div class="shrink-hide pointer-events-none" aria-hidden="true">
           <!-- mushroom, top-left -->
           <div class="header-sprite" style="top: 16px; left: 28px; transform: rotate(-8deg);">
             <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
@@ -113,6 +114,7 @@ const { title, description = 'atelier honeymaybe — a whimsical art archive' } 
         </div>
 
       </header>
+      <div id="header-sentinel" style="height:1px; margin-top:-1px; pointer-events:none;" aria-hidden="true"></div>
 
       <main class="anim-main">
         <slot />
@@ -221,10 +223,44 @@ const { title, description = 'atelier honeymaybe — a whimsical art archive' } 
       spawnBee(window.innerWidth * 0.7, window.innerHeight * 0.6, Math.PI);
     })();
   </script>
+
+  <script>
+    const header = document.getElementById('site-header');
+    const sentinel = document.getElementById('header-sentinel');
+    if (header && sentinel) {
+      new IntersectionObserver(
+        ([entry]) => header.classList.toggle('shrunk', !entry.isIntersecting),
+        { threshold: 0 }
+      ).observe(sentinel);
+    }
+  </script>
   </body>
 </html>
 
 <style is:global>
+  /* ── sticky shrunk header ── */
+  #site-header .shrink-hide {
+    transition: opacity 0.25s ease, max-height 0.3s ease, margin 0.3s ease;
+    overflow: hidden;
+    max-height: 200px;
+    opacity: 1;
+  }
+  #site-header.shrunk .shrink-hide {
+    max-height: 0;
+    opacity: 0;
+    margin: 0 !important;
+  }
+  #site-header .big-title {
+    transition: font-size 0.3s ease;
+  }
+  #site-header.shrunk .big-title {
+    font-size: 1.6rem !important;
+  }
+  #site-header.shrunk {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+
   /* ── entrance animations ── */
   @keyframes fade-up {
     from {

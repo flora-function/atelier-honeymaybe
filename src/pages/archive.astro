@@ -38,17 +38,63 @@ const sorted = allArt.sort((a, b) => b.data.date.localeCompare(a.data.date));
           <div class="p-3 border-t-3 border-bark">
             <p class="font-pixel text-xs leading-relaxed truncate">{piece.data.title}</p>
             <p class="font-display text-base text-bark/60 mt-1">{piece.data.medium}</p>
-            <div class="flex flex-wrap gap-1 mt-2">
-              {piece.data.tags.slice(0, 2).map(tag => (
-                <span class="font-display text-sm bg-mint/60 border border-bark/30 px-1 rounded-none">
-                  #{tag}
-                </span>
-              ))}
-            </div>
           </div>
         </a>
       ))}
     </div>
 
   </div>
+  <script>
+    const SIZE = 32;
+    const colors = ['#fdf6e3','#f5e6c0','#f4c542','#b8a0d6','#7ab8d4','#5a8a3c','#e85d4a','#ffb3c6'];
+
+    const canvas = document.createElement('canvas');
+    canvas.setAttribute('aria-hidden', 'true');
+    Object.assign(canvas.style, {
+      position: 'fixed', inset: '0', zIndex: '99999', pointerEvents: 'none',
+      imageRendering: 'pixelated',
+    });
+
+    const W = canvas.width  = window.innerWidth;
+    const H = canvas.height = window.innerHeight;
+    document.body.appendChild(canvas);
+
+    const ctx = canvas.getContext('2d')!;
+    const cols = Math.ceil(W / SIZE);
+    const rows = Math.ceil(H / SIZE);
+
+    // draw each square a random palette colour
+    const cells: [number, number][] = [];
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+        ctx.fillRect(c * SIZE, r * SIZE, SIZE, SIZE);
+        cells.push([c, r]);
+      }
+    }
+
+    // shuffle
+    for (let i = cells.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [cells[i], cells[j]] = [cells[j], cells[i]];
+    }
+
+    const BATCH = 40; // squares cleared per frame
+    let idx = 0;
+
+    function erase() {
+      for (let i = 0; i < BATCH && idx < cells.length; i++, idx++) {
+        const [c, r] = cells[idx];
+        ctx.clearRect(c * SIZE, r * SIZE, SIZE, SIZE);
+      }
+      if (idx < cells.length) {
+        requestAnimationFrame(erase);
+      } else {
+        canvas.remove();
+      }
+    }
+
+    // slight delay so page is ready
+    setTimeout(() => requestAnimationFrame(erase), 200);
+  </script>
 </BaseLayout>
