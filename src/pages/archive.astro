@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allArt = await getCollection('art');
+const sorted = allArt.sort((a, b) => b.data.date.localeCompare(a.data.date));
+---
+
+<BaseLayout title="archive" description="The full archive of honeymaybe's art">
+  <div class="max-w-5xl mx-auto px-6 pt-12 pb-16">
+
+    <!-- Header -->
+    <div class="mb-10">
+      <div class="inline-block border-3 border-bark bg-sky px-4 py-2 shadow-pixel mb-4">
+        <h1 class="font-pixel text-xs text-bark">the archive</h1>
+      </div>
+      <p class="font-display text-2xl text-bark/70 mt-2">
+        everything i have ever made, more or less. ({sorted.length} piece{sorted.length !== 1 ? 's' : ''})
+      </p>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
+      {sorted.map(piece => (
+        <a
+          href={`/archive/${piece.id}`}
+          class="pixel-card block overflow-hidden group"
+        >
+          <div class="bg-lavender/20 aspect-square overflow-hidden">
+            <img
+              src={piece.data.image}
+              alt={piece.data.title}
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              style="image-rendering: auto;"
+              onerror="this.style.display='none'; this.parentElement.classList.add('flex','items-center','justify-center'); this.parentElement.innerHTML='<span class=\'font-display text-3xl text-bark/20\'>no img</span>'"
+            />
+          </div>
+          <div class="p-3 border-t-3 border-bark">
+            <p class="font-pixel text-xs leading-relaxed truncate">{piece.data.title}</p>
+            <p class="font-display text-base text-bark/60 mt-1">{piece.data.medium}</p>
+            <div class="flex flex-wrap gap-1 mt-2">
+              {piece.data.tags.slice(0, 2).map(tag => (
+                <span class="font-display text-sm bg-mint/60 border border-bark/30 px-1 rounded-none">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+
+  </div>
+</BaseLayout>

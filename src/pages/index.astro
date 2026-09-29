@@ -1,0 +1,303 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allArt = await getCollection('art');
+const featured = allArt.filter(p => p.data.featured).slice(0, 3);
+---
+
+<BaseLayout title="home">
+  <!-- Hero -->
+  <section class="max-w-5xl mx-auto px-6 pt-16 pb-12">
+    <div class="flex flex-col md:flex-row gap-10 items-start">
+      <!-- Title block -->
+      <div class="flex-1">
+        <div class="inline-block border-4 border-bark bg-butter px-4 py-2 shadow-pixel mb-6">
+          <span class="font-display text-2xl tracking-widest">welcome to my little corner</span>
+        </div>
+        <h1 class="font-pixel text-lg md:text-2xl leading-loose text-bark mb-6">
+          atelier<br />honeymaybe
+        </h1>
+        <p class="font-display text-2xl text-bark/80 leading-relaxed max-w-md">
+          a digital room full of colour and an archive to hold my art and photography.
+        </p>
+        <div class="flex gap-4 mt-8 flex-wrap">
+          <a href="/archive" class="pixel-btn bg-moss text-cream">browse the archive</a>
+          <a href="/about" class="pixel-btn bg-lavender text-bark">about me</a>
+        </div>
+      </div>
+
+      <!-- Decorative pixel window -->
+      <div class="w-full md:w-72 shrink-0">
+        <div class="pixel-card p-0 overflow-hidden">
+          <div class="bg-moss px-3 py-2 border-b-3 border-bark flex items-center gap-2">
+            <span class="w-3 h-3 rounded-sm bg-coral border border-bark inline-block"></span>
+            <span class="w-3 h-3 rounded-sm bg-butter border border-bark inline-block"></span>
+            <span class="w-3 h-3 rounded-sm bg-mint border border-bark inline-block"></span>
+            <span class="font-display text-cream text-lg ml-2 tracking-wide">latest.png</span>
+          </div>
+          <div class="bg-lavender/20 h-56 flex items-center justify-center">
+            <div class="text-center">
+              <p class="font-pixel text-5xl mb-3">&#x1F3A8;</p>
+              <p class="font-display text-xl text-bark/60">your art here soon!</p>
+              <p class="font-display text-lg text-bark/40">drop images in /public/art/</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="border-t-4 border-dashed border-bark/30"></div>
+  </div>
+
+  <!-- Featured works -->
+  {featured.length > 0 && (
+    <section class="max-w-5xl mx-auto px-6 py-14">
+      <div class="flex items-center gap-4 mb-8">
+        <div class="inline-block border-3 border-bark bg-coral px-3 py-1 shadow-pixel-sm">
+          <h2 class="font-pixel text-xs text-cream">featured works</h2>
+        </div>
+        <div class="flex-1 border-t-4 border-dotted border-bark/30"></div>
+        <a href="/archive" class="font-display text-xl text-bark/60 hover:text-coral underline">see all &rarr;</a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {featured.map(piece => (
+          <a href={`/archive/${piece.id}`} class="pixel-card block overflow-hidden group">
+            <div class="bg-lavender/20 h-48 overflow-hidden">
+              <img
+                src={piece.data.image}
+                alt={piece.data.title}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                style="image-rendering: auto;"
+                onerror="this.parentElement.innerHTML='<div class=\'flex items-center justify-center h-full font-display text-4xl text-bark/30\'>no img yet</div>'"
+              />
+            </div>
+            <div class="p-4 border-t-3 border-bark">
+              <p class="font-pixel text-xs leading-relaxed mb-1">{piece.data.title}</p>
+              <p class="font-display text-lg text-bark/60">{piece.data.medium} &bull; {piece.data.date}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Now playing / currently into block -->
+  <section class="max-w-5xl mx-auto px-6 pb-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+      <div id="postit-wrap" style="background:#fef9d7; padding:1.5rem 1.25rem 1.5rem; min-height:340px; transform:rotate(-1.5deg); box-shadow: 4px 4px 12px rgba(45,27,0,0.15), 0 1px 3px rgba(45,27,0,0.08); position:relative; margin-top:18px;">
+        <!-- tape strip -->
+        <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);width:110px;height:24px;background:rgba(255,255,255,0.55);border:1px solid rgba(200,190,160,0.4);box-shadow:0 1px 3px rgba(45,27,0,0.1);"></div>
+        <p class="font-pixel text-xs mb-3" style="color:#5a8a3c;">current interests</p>
+        <ul style="font-family:'Butterfly Kids', cursive; font-size:1.6rem; color:#2d1b00; line-height:1.9; list-style:none; padding:0; margin:0; -webkit-text-stroke:0.3px #2d1b00; position:relative; z-index:1; pointer-events:none;">
+          <li>gel crayons</li>
+          <li>depeche mode</li>
+          <li>pilea peperomioides</li>
+          <li>peppermint tea</li>
+          <li>pixel ui</li>
+          <li>colourful crockery</li>
+          <li>google fonts</li>
+        </ul>
+
+        <!-- draw canvas -->
+        <canvas id="postit-canvas" style="position:absolute;inset:0;width:100%;height:100%;z-index:2;cursor:crosshair;touch-action:none;"></canvas>
+
+        <!-- clear button -->
+        <button id="postit-clear" class="font-pixel" style="position:absolute;bottom:10px;right:10px;z-index:3;font-size:0.4rem;background:#fef9d7;border:2px solid #2d1b00;padding:3px 7px;cursor:pointer;box-shadow:2px 2px 0 #2d1b00;color:#2d1b00;">clear</button>
+      </div>
+
+      <script>
+        (function () {
+          const wrap   = document.getElementById('postit-wrap');
+          const canvas = document.getElementById('postit-canvas');
+          const btn    = document.getElementById('postit-clear');
+          const ctx    = canvas.getContext('2d');
+          let drawing  = false;
+
+          function resize() {
+            const dpr = window.devicePixelRatio || 1;
+            // save current drawing
+            const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            canvas.width  = wrap.offsetWidth  * dpr;
+            canvas.height = wrap.offsetHeight * dpr;
+            ctx.scale(dpr, dpr);
+            ctx.lineCap   = 'round';
+            ctx.lineJoin  = 'round';
+            ctx.lineWidth = 2.5;
+            ctx.strokeStyle = '#2d1b00';
+            try { ctx.putImageData(img, 0, 0); } catch(_) {}
+          }
+
+          function pos(e) {
+            const r = canvas.getBoundingClientRect();
+            const src = e.touches ? e.touches[0] : e;
+            return { x: src.clientX - r.left, y: src.clientY - r.top };
+          }
+
+          canvas.addEventListener('pointerdown', e => {
+            drawing = true;
+            const p = pos(e);
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            canvas.setPointerCapture(e.pointerId);
+          });
+          canvas.addEventListener('pointermove', e => {
+            if (!drawing) return;
+            const p = pos(e);
+            ctx.lineTo(p.x, p.y);
+            ctx.stroke();
+          });
+          canvas.addEventListener('pointerup',   () => { drawing = false; ctx.beginPath(); });
+          canvas.addEventListener('pointerout',  () => { drawing = false; ctx.beginPath(); });
+
+          btn.addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+          });
+
+          resize();
+          window.addEventListener('resize', resize);
+        })();
+      </script>
+      <!-- retro last.fm player -->
+      <div class="p-0 overflow-hidden" style="border:3px solid #2d1b00; background:#fdf6e3;">
+
+        <!-- title bar -->
+        <div class="flex items-center gap-2 px-3 py-2" style="background:#2d1b00;">
+          <span style="width:8px;height:8px;background:#e85d4a;border:2px solid #fdf6e3;display:inline-block;"></span>
+          <span style="width:8px;height:8px;background:#f4c542;border:2px solid #fdf6e3;display:inline-block;"></span>
+          <span style="width:8px;height:8px;background:#5a8a3c;border:2px solid #fdf6e3;display:inline-block;"></span>
+          <span class="font-pixel text-cream" style="font-size:0.45rem; margin-left:6px; letter-spacing:0.1em;">♪ last played</span>
+          <span id="lfm-live-dot" class="inline-block opacity-0" style="width:6px;height:6px;background:#5a8a3c;border:1px solid #fdf6e3;margin-left:auto;"></span>
+        </div>
+
+        <!-- body -->
+        <div class="flex items-center gap-0" style="background:#fdf6e3;">
+
+          <!-- vinyl panel -->
+          <div class="shrink-0 flex items-center justify-center" style="width:130px;height:130px;background:#f4c542;border-right:3px solid #2d1b00;position:relative;overflow:hidden;">
+            <!-- pixel tonearm -->
+            <div style="position:absolute;top:12px;right:14px;width:3px;height:46px;background:#777;transform-origin:top center;transform:rotate(25deg);z-index:4;"></div>
+            <div style="position:absolute;top:8px;right:10px;width:10px;height:10px;background:#777;z-index:5;"></div>
+
+            <!-- vinyl disc -->
+            <div id="lfm-vinyl-disc" style="width:96px;height:96px;border-radius:50%;border:3px solid #111;position:relative;overflow:hidden;flex-shrink:0;z-index:2;">
+              <svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;image-rendering:pixelated;">
+                <circle cx="48" cy="48" r="48" fill="#111"/>
+                <circle cx="48" cy="48" r="44" fill="none" stroke="#222" stroke-width="2"/>
+                <circle cx="48" cy="48" r="38" fill="none" stroke="#222" stroke-width="2"/>
+                <circle cx="48" cy="48" r="32" fill="none" stroke="#222" stroke-width="2"/>
+                <circle cx="48" cy="48" r="26" fill="none" stroke="#222" stroke-width="2"/>
+                <!-- label — coral -->
+                <circle cx="48" cy="48" r="20" fill="#e85d4a"/>
+                <circle cx="48" cy="48" r="16" fill="#e85d4a"/>
+                <!-- album art clipped into label -->
+                <clipPath id="art-clip"><circle cx="48" cy="48" r="16"/></clipPath>
+                <image id="lfm-vinyl-art" href="" x="32" y="32" width="32" height="32" clip-path="url(#art-clip)" preserveAspectRatio="xMidYMid slice"/>
+                <!-- center hole -->
+                <circle cx="48" cy="48" r="3" fill="#000"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- track info -->
+          <div class="flex flex-col justify-center px-4 py-3" style="flex:1;min-width:0;gap:2px;">
+            <p id="lfm-track" class="font-pixel text-bark" style="font-size:0.5rem;line-height:1.6;word-break:break-word;">loading...</p>
+            <p class="font-display text-bark/50" style="font-size:1rem;">by <span id="lfm-artist-name" class="text-bark font-display" style="font-size:1.1rem;"></span></p>
+            <p id="lfm-album" class="font-display" style="font-size:0.95rem;color:rgba(45,27,0,0.4);"></p>
+
+            <!-- eq bars -->
+            <div id="lfm-eq" class="hidden items-end gap-px mt-2" style="height:14px;">
+              <span class="eq-bar" style="width:4px;background:#e85d4a;"></span>
+              <span class="eq-bar" style="width:4px;background:#f4c542;"></span>
+              <span class="eq-bar" style="width:4px;background:#5a8a3c;"></span>
+              <span class="eq-bar" style="width:4px;background:#e85d4a;"></span>
+              <span class="eq-bar" style="width:4px;background:#f4c542;"></span>
+              <span class="eq-bar" style="width:4px;background:#5a8a3c;"></span>
+              <span class="eq-bar" style="width:4px;background:#e85d4a;"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- footer -->
+        <div class="flex items-center px-3 py-2" style="background:#2d1b00;">
+          <span class="font-pixel" style="font-size:0.38rem; color:rgba(253,246,227,0.4); letter-spacing:0.08em;">▶▶ honeymaybe on last.fm</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+<script>
+  (async function () {
+    const API_KEY = '3094714d5289c30371badaa98e6f977e';
+    const USER    = 'honeymaybe';
+    const url     = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${USER}&api_key=${API_KEY}&format=json&limit=1`;
+
+    try {
+      const res   = await fetch(url);
+      const data  = await res.json();
+      const track = data.recenttracks?.track?.[0];
+      if (!track) return;
+
+      const isLive = track['@attr']?.nowplaying === 'true';
+      const title  = track.name;
+      const artist = track.artist['#text'];
+      const album  = track.album['#text'];
+      const artSrc = track.image?.[3]?.['#text'] || track.image?.[2]?.['#text'] || '';
+
+      document.getElementById('lfm-track').textContent       = title;
+      document.getElementById('lfm-artist-name').textContent = artist;
+      document.getElementById('lfm-album').textContent       = album;
+
+      if (artSrc) {
+        const vinylArt = document.getElementById('lfm-vinyl-art');
+        if (vinylArt) vinylArt.setAttribute('href', artSrc);
+        const artImg = document.getElementById('lfm-art');
+        if (artImg) { artImg.src = artSrc; artImg.style.display = 'block'; }
+      }
+
+      const eq  = document.getElementById('lfm-eq');
+      const dot = document.getElementById('lfm-live-dot');
+
+      if (isLive) {
+        dot.style.opacity   = '1';
+        dot.style.animation = 'lfm-blink 1s step-start infinite';
+        eq.classList.remove('hidden');
+        eq.classList.add('flex');
+        document.getElementById('lfm-vinyl-disc').style.animation = 'vinyl-spin 4s linear infinite';
+      }
+    } catch (e) {
+      document.getElementById('lfm-track').textContent = 'could not load :(';
+    }
+  })();
+</script>
+
+<style>
+  @keyframes lfm-blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+
+  @keyframes vinyl-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  @keyframes eq-bounce {
+    0%, 100% { height: 3px;  }
+    50%       { height: 16px; }
+  }
+
+  #lfm-eq .eq-bar:nth-child(1) { animation: eq-bounce 0.5s ease-in-out 0.00s infinite; }
+  #lfm-eq .eq-bar:nth-child(2) { animation: eq-bounce 0.5s ease-in-out 0.10s infinite; }
+  #lfm-eq .eq-bar:nth-child(3) { animation: eq-bounce 0.5s ease-in-out 0.20s infinite; }
+  #lfm-eq .eq-bar:nth-child(4) { animation: eq-bounce 0.5s ease-in-out 0.15s infinite; }
+  #lfm-eq .eq-bar:nth-child(5) { animation: eq-bounce 0.5s ease-in-out 0.05s infinite; }
+  #lfm-eq .eq-bar:nth-child(6) { animation: eq-bounce 0.5s ease-in-out 0.12s infinite; }
+  #lfm-eq .eq-bar:nth-child(7) { animation: eq-bounce 0.5s ease-in-out 0.08s infinite; }
+</style>
+</BaseLayout>

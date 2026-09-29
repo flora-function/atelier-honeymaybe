@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const art = await getCollection('art');
+  return art.map(piece => ({
+    params: { id: piece.id },
+    props: { piece },
+  }));
+}
+
+const { piece } = Astro.props;
+const { title, date, medium, tags, image, description } = piece.data;
+---
+
+<BaseLayout title={title}>
+  <div class="max-w-3xl mx-auto px-6 pt-12 pb-16">
+
+    <!-- Back -->
+    <a href="/archive" class="pixel-link inline-block mb-8 text-sm">&larr; back to archive</a>
+
+    <div class="pixel-card overflow-hidden">
+      <!-- Image -->
+      <div class="bg-lavender/20 min-h-72 flex items-center justify-center border-b-3 border-bark">
+        <img
+          src={image}
+          alt={title}
+          class="max-w-full max-h-[500px] object-contain"
+          style="image-rendering: auto;"
+          onerror="this.style.display='none'; this.parentElement.innerHTML='<p class=\'font-display text-2xl text-bark/30 p-16\'>image coming soon</p>'"
+        />
+      </div>
+
+      <!-- Info -->
+      <div class="p-6 md:p-8">
+        <h1 class="font-pixel text-sm md:text-base leading-loose mb-4">{title}</h1>
+
+        <div class="flex flex-wrap gap-3 mb-6">
+          <span class="inline-block border-2 border-bark bg-butter px-3 py-1 font-display text-lg shadow-pixel-sm">
+            {medium}
+          </span>
+          <span class="inline-block border-2 border-bark bg-sky px-3 py-1 font-display text-lg shadow-pixel-sm">
+            {date}
+          </span>
+        </div>
+
+        {description && (
+          <p class="font-display text-xl text-bark/80 leading-relaxed mb-6">{description}</p>
+        )}
+
+        <div class="flex flex-wrap gap-2 mt-4">
+          {tags.map(tag => (
+            <a
+              href={`/archive?tag=${tag}`}
+              class="font-display text-lg bg-mint/50 border-2 border-bark/40 px-2 py-0.5 hover:bg-mint transition-colors"
+            >
+              #{tag}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Nav between pieces (placeholder structure) -->
+    <div class="flex justify-between mt-8">
+      <a href="/archive" class="pixel-btn bg-lavender text-bark">&larr; all work</a>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="about" description="About the artist behind atelier honeymaybe">
+  <div class="max-w-3xl mx-auto px-6 pt-12 pb-16">
+
+    <div class="inline-block border-3 border-bark bg-petal px-4 py-2 shadow-pixel mb-8">
+      <h1 class="font-pixel text-xs text-bark">about the artist</h1>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 items-start">
+
+      <!-- Photo placeholder -->
+      <div class="pixel-card overflow-hidden">
+        <div class="bg-lavender/30 aspect-square flex items-center justify-center border-b-3 border-bark">
+          <div class="text-center">
+            <p class="font-pixel text-4xl mb-2">&#x1F331;</p>
+            <p class="font-display text-lg text-bark/40">a photo of you!</p>
+          </div>
+        </div>
+        <div class="p-3 bg-butter/30">
+          <p class="font-display text-lg text-center text-bark/60">your name here</p>
+        </div>
+      </div>
+
+      <!-- Bio -->
+      <div class="space-y-5">
+        <div class="pixel-card p-5 bg-mint/20">
+          <p class="font-pixel text-xs text-moss mb-3">hi there!</p>
+          <p class="font-display text-xl text-bark/80 leading-relaxed">
+            write a little bit about yourself here &mdash; who you are, where you create, what drives your art...
+          </p>
+        </div>
+
+        <div class="pixel-card p-5 bg-sky/20">
+          <p class="font-pixel text-xs text-sky mb-3" style="color: #3a7a9c;">mediums i work in</p>
+          <ul class="font-display text-xl text-bark/80 space-y-1">
+            <li>&rarr; watercolour</li>
+            <li>&rarr; gouache</li>
+            <li>&rarr; pen &amp; ink</li>
+            <li>&rarr; add your own!</li>
+          </ul>
+        </div>
+
+        <div class="pixel-card p-5 bg-petal/20">
+          <p class="font-pixel text-xs text-coral mb-3">find me elsewhere</p>
+          <div class="flex flex-wrap gap-3">
+            <a href="#" class="pixel-btn bg-bark text-cream text-base">instagram</a>
+            <a href="#" class="pixel-btn bg-lavender text-bark text-base">shop (soon!)</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Pixel divider -->
+    <div class="my-12 flex items-center gap-2">
+      <div class="flex-1 border-t-4 border-dotted border-bark/20"></div>
+      <span class="font-pixel text-xs text-bark/30">* * *</span>
+      <div class="flex-1 border-t-4 border-dotted border-bark/20"></div>
+    </div>
+
+    <!-- Fun facts / currently -->
+    <div class="pixel-card p-6 bg-butter/20">
+      <p class="font-pixel text-xs text-bark/70 mb-5">right now</p>
+      <div class="grid sm:grid-cols-3 gap-5 font-display text-lg">
+        <div>
+          <p class="text-bark/50 mb-1">making</p>
+          <p class="text-bark">fill this in!</p>
+        </div>
+        <div>
+          <p class="text-bark/50 mb-1">reading</p>
+          <p class="text-bark">fill this in!</p>
+        </div>
+        <div>
+          <p class="text-bark/50 mb-1">listening</p>
+          <p class="text-bark">fill this in!</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</BaseLayout>

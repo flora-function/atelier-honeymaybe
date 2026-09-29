@@ -1,0 +1,348 @@
+---
+import PixelSprites from '../components/PixelSprites.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = 'atelier honeymaybe — a whimsical art archive' } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title} | atelier honeymaybe</title>
+
+    <!-- Pixel fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&family=Butterfly+Kids&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="bg-cream text-bark min-h-screen">
+    <!-- pixel dot background pattern -->
+    <div class="fixed inset-0 pointer-events-none" style="background-image: radial-gradient(circle, #2d1b0015 1px, transparent 1px); background-size: 20px 20px;" aria-hidden="true"></div>
+
+    <PixelSprites />
+    <div class="relative z-10">
+      <header class="bg-cream px-6 pt-12 pb-8 text-center relative overflow-hidden" style="border-bottom: 4px dashed #2d1b00;">
+
+        <a href="/" class="block no-underline" aria-label="atelier honeymaybe — home">
+          <p class="anim-atelier font-pixel text-bark mb-3" style="font-size: clamp(0.55rem, 1.5vw, 0.9rem); letter-spacing: 0.2em;">
+            atelier
+          </p>
+          <h1 class="anim-title big-title leading-none">
+            <span style="color:#e85d4a">h</span><span style="color:#d4567e">o</span><span style="color:#b8a0d6">n</span><span style="color:#7ab8d4">e</span><span style="color:#5a8a3c">y</span><span style="color:#f4c542">m</span><span style="color:#e85d4a">a</span><span style="color:#d4567e">y</span><span style="color:#b8a0d6">b</span><span style="color:#7ab8d4">e</span>
+          </h1>
+        </a>
+
+        <nav class="anim-nav flex gap-2 md:gap-4 flex-wrap justify-center mt-8">
+          <a href="/" class="pixel-link">home</a>
+          <a href="/archive" class="pixel-link">archive</a>
+          <a href="/about" class="pixel-link">about</a>
+        </nav>
+
+        <!-- header sprites -->
+        <div class="pointer-events-none" aria-hidden="true">
+          <!-- mushroom, top-left -->
+          <div class="header-sprite" style="top: 16px; left: 28px; transform: rotate(-8deg);">
+            <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+              <rect x="6"  y="0"  width="20" height="4"  fill="#e85d4a"/>
+              <rect x="2"  y="4"  width="28" height="4"  fill="#e85d4a"/>
+              <rect x="0"  y="8"  width="32" height="4"  fill="#e85d4a"/>
+              <rect x="0"  y="12" width="32" height="4"  fill="#e85d4a"/>
+              <rect x="4"  y="8"  width="6"  height="6"  fill="#fdf6e3"/>
+              <rect x="20" y="4"  width="4"  height="4"  fill="#fdf6e3"/>
+              <rect x="2"  y="16" width="28" height="4"  fill="#fdf6e3"/>
+              <rect x="10" y="20" width="12" height="4"  fill="#f4c542"/>
+              <rect x="10" y="24" width="12" height="4"  fill="#f4c542"/>
+            </svg>
+          </div>
+          <!-- pink flower, top-right -->
+          <div class="header-sprite" style="top: 20px; right: 32px; transform: rotate(12deg);">
+            <svg width="28" height="28" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8"  y="0"  width="8"  height="8"  fill="#ffb3c6"/>
+              <rect x="0"  y="8"  width="8"  height="8"  fill="#ffb3c6"/>
+              <rect x="16" y="8"  width="8"  height="8"  fill="#ffb3c6"/>
+              <rect x="8"  y="16" width="8"  height="8"  fill="#ffb3c6"/>
+              <rect x="4"  y="4"  width="4"  height="4"  fill="#ffb3c6"/>
+              <rect x="16" y="4"  width="4"  height="4"  fill="#ffb3c6"/>
+              <rect x="4"  y="16" width="4"  height="4"  fill="#ffb3c6"/>
+              <rect x="16" y="16" width="4"  height="4"  fill="#ffb3c6"/>
+              <rect x="8"  y="8"  width="8"  height="8"  fill="#f4c542"/>
+            </svg>
+          </div>
+          <!-- blue spiral, left mid -->
+          <div class="header-sprite" style="bottom: 28px; left: 60px; transform: rotate(6deg);">
+            <svg width="32" height="28" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8"  y="0"  width="16" height="4"  fill="#7ab8d4"/>
+              <rect x="4"  y="4"  width="4"  height="4"  fill="#7ab8d4"/>
+              <rect x="20" y="4"  width="4"  height="4"  fill="#7ab8d4"/>
+              <rect x="0"  y="8"  width="4"  height="4"  fill="#7ab8d4"/>
+              <rect x="8"  y="8"  width="8"  height="4"  fill="#7ab8d4"/>
+              <rect x="20" y="8"  width="4"  height="4"  fill="#7ab8d4"/>
+              <rect x="0"  y="12" width="4"  height="4"  fill="#7ab8d4"/>
+              <rect x="8"  y="12" width="4"  height="4"  fill="#7ab8d4"/>
+              <rect x="20" y="12" width="4"  height="4"  fill="#7ab8d4"/>
+              <rect x="0"  y="16" width="4"  height="4"  fill="#7ab8d4"/>
+              <rect x="8"  y="16" width="16" height="4"  fill="#7ab8d4"/>
+              <rect x="0"  y="20" width="4"  height="4"  fill="#7ab8d4"/>
+              <rect x="4"  y="24" width="20" height="4"  fill="#7ab8d4"/>
+            </svg>
+          </div>
+          <!-- yellow star, right mid -->
+          <div class="header-sprite" style="bottom: 36px; right: 60px; transform: rotate(-10deg);">
+            <svg width="28" height="28" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8"  y="0"  width="4"  height="8"  fill="#f4c542"/>
+              <rect x="0"  y="8"  width="8"  height="4"  fill="#f4c542"/>
+              <rect x="8"  y="8"  width="4"  height="4"  fill="#f4c542"/>
+              <rect x="16" y="8"  width="8"  height="4"  fill="#f4c542"/>
+              <rect x="8"  y="16" width="4"  height="8"  fill="#f4c542"/>
+              <rect x="4"  y="4"  width="4"  height="4"  fill="#f4c54280"/>
+              <rect x="16" y="4"  width="4"  height="4"  fill="#f4c54280"/>
+              <rect x="4"  y="16" width="4"  height="4"  fill="#f4c54280"/>
+              <rect x="16" y="16" width="4"  height="4"  fill="#f4c54280"/>
+            </svg>
+          </div>
+        </div>
+
+      </header>
+
+      <main class="anim-main">
+        <slot />
+      </main>
+
+      <footer class="mt-16 px-6 py-8 bg-cream" style="border-top: 4px dashed #2d1b00;">
+        <div class="max-w-5xl mx-auto text-center font-display text-xl text-bark/60">
+          <p>made with love + pixels &mdash; atelier honeymaybe &copy; {new Date().getFullYear()}</p>
+          <div class="mt-4 flex justify-center">
+            <a href="https://destroy.spritefusion.com/?from=badge" target="_blank">
+              <img src="https://destroy.spritefusion.com/badge.svg" alt="Destroy this website" width="180" height="40" />
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  <!-- wandering bees -->
+  <template id="bee-template">
+    <div style="position:fixed; z-index:9999; pointer-events:none; image-rendering:pixelated; will-change:transform;" aria-hidden="true">
+      <svg width="36" height="32" xmlns="http://www.w3.org/2000/svg">
+        <rect x="8"  y="0"  width="4"  height="4"  fill="#2d1b00"/>
+        <rect x="24" y="0"  width="4"  height="4"  fill="#2d1b00"/>
+        <rect x="12" y="4"  width="4"  height="4"  fill="#2d1b00"/>
+        <rect x="20" y="4"  width="4"  height="4"  fill="#2d1b00"/>
+        <rect x="0"  y="8"  width="12" height="12" fill="#c7e9f1" opacity="0.9"/>
+        <rect x="24" y="8"  width="12" height="12" fill="#c7e9f1" opacity="0.9"/>
+        <rect x="12" y="8"  width="12" height="4"  fill="#f4c542"/>
+        <rect x="12" y="12" width="12" height="4"  fill="#2d1b00"/>
+        <rect x="12" y="16" width="12" height="4"  fill="#f4c542"/>
+        <rect x="12" y="20" width="12" height="4"  fill="#2d1b00"/>
+        <rect x="14" y="24" width="8"  height="4"  fill="#2d1b00"/>
+      </svg>
+    </div>
+  </template>
+
+  <script>
+    (function () {
+      function spawnBee(startX, startY, bobOffset) {
+        const template = document.getElementById('bee-template');
+        const el = template.content.cloneNode(true).firstElementChild;
+        document.body.appendChild(el);
+        const svg = el.querySelector('svg');
+
+        let x = startX, y = startY;
+        let vx = (Math.random() - 0.5) * 2;
+        let vy = (Math.random() - 0.5) * 2;
+        let targetX = x, targetY = y;
+        let ticksUntilNewTarget = 0;
+        let facingLeft = false;
+        let bobT = bobOffset;
+
+        function pickNewTarget() {
+          targetX = Math.random() * (window.innerWidth  - 80) + 20;
+          targetY = Math.random() * (window.innerHeight - 80) + 20;
+          ticksUntilNewTarget = 120 + Math.random() * 180;
+        }
+
+        pickNewTarget();
+
+        function tick() {
+          bobT += 0.18;
+          const bobY = Math.sin(bobT) * 3;
+
+          const dx = targetX - x;
+          const dy = targetY - y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist > 4) {
+            const speed = 1.4;
+            vx += (dx / dist) * 0.08;
+            vy += (dy / dist) * 0.08;
+            const curSpeed = Math.sqrt(vx * vx + vy * vy);
+            if (curSpeed > speed) {
+              vx = (vx / curSpeed) * speed;
+              vy = (vy / curSpeed) * speed;
+            }
+          }
+
+          x += vx;
+          y += vy;
+
+          const newFacingLeft = vx < 0;
+          if (newFacingLeft !== facingLeft) {
+            facingLeft = newFacingLeft;
+            svg.style.transform = facingLeft ? 'scaleX(-1)' : 'scaleX(1)';
+          }
+
+          if (x < 10)  { x = 10;  vx = Math.abs(vx); }
+          if (x > window.innerWidth  - 46) { x = window.innerWidth  - 46; vx = -Math.abs(vx); }
+          if (y < 10)  { y = 10;  vy = Math.abs(vy); }
+          if (y > window.innerHeight - 42) { y = window.innerHeight - 42; vy = -Math.abs(vy); }
+
+          el.style.left = x + 'px';
+          el.style.top  = (y + bobY) + 'px';
+
+          ticksUntilNewTarget--;
+          if (ticksUntilNewTarget <= 0) pickNewTarget();
+
+          requestAnimationFrame(tick);
+        }
+
+        requestAnimationFrame(tick);
+      }
+
+      spawnBee(window.innerWidth * 0.3, window.innerHeight * 0.2, 0);
+      spawnBee(window.innerWidth * 0.7, window.innerHeight * 0.6, Math.PI);
+    })();
+  </script>
+  </body>
+</html>
+
+<style is:global>
+  /* ── entrance animations ── */
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes pop-in {
+    0%   { opacity: 0; transform: scale(0.85) translateY(16px); }
+    60%  { transform: scale(1.03) translateY(-4px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .anim-atelier {
+    opacity: 0;
+    animation: fade-up 0.5s ease-out 0.1s forwards;
+  }
+  .anim-title {
+    opacity: 0;
+    animation: pop-in 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s forwards;
+  }
+  .anim-nav {
+    opacity: 0;
+    animation: fade-up 0.5s ease-out 0.7s forwards;
+  }
+  .anim-main {
+    opacity: 0;
+    animation: fade-up 0.6s ease-out 0.9s forwards;
+  }
+
+  /* ── header sprites ── */
+  .header-sprite {
+    position: absolute;
+    opacity: 0.7;
+    image-rendering: pixelated;
+  }
+
+  /* ── big header title ── */
+  .big-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(2.4rem, 11vw, 8rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    -webkit-text-stroke: 3px #2d1b00;
+    paint-order: stroke fill;
+  }
+
+  /* pixel-link utility */
+  .pixel-link {
+    font-family: 'VT323', monospace;
+    font-size: 1.25rem;
+    padding: 4px 10px;
+    border: 2px solid #2d1b00;
+    box-shadow: 2px 2px 0px #2d1b00;
+    background: #fdf6e3;
+    color: #2d1b00;
+    text-decoration: none;
+    transition: all 0.1s;
+    display: inline-block;
+  }
+  .pixel-link:hover {
+    background: #f4c542;
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0px #2d1b00;
+  }
+  .pixel-link:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0px 0px 0px #2d1b00;
+  }
+
+  /* pixel card utility */
+  .pixel-card {
+    border: 3px solid #2d1b00;
+    box-shadow: 5px 5px 0px #2d1b00;
+    background: #fdf6e3;
+    transition: all 0.1s;
+  }
+  .pixel-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0px #2d1b00;
+  }
+
+  /* pixel button */
+  .pixel-btn {
+    font-family: 'VT323', monospace;
+    font-size: 1.4rem;
+    padding: 8px 20px;
+    border: 3px solid #2d1b00;
+    box-shadow: 4px 4px 0px #2d1b00;
+    display: inline-block;
+    text-decoration: none;
+    transition: all 0.1s;
+    cursor: pointer;
+  }
+  .pixel-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #2d1b00;
+  }
+  .pixel-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0px 0px 0px #2d1b00;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  /* crayon cursor — tilted like a real pointer */
+  html, body, * {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg transform='rotate(-25%2C 16%2C 16)'%3E%3Crect x='14' y='1' width='4' height='1' fill='%232d1b00'/%3E%3Crect x='13' y='2' width='6' height='1' fill='%23f4c542'/%3E%3Crect x='12' y='3' width='8' height='2' fill='%23f4c542'/%3E%3Crect x='11' y='5' width='10' height='2' fill='%23f4c542'/%3E%3Crect x='10' y='7' width='12' height='12' fill='%23e85d4a'/%3E%3Crect x='10' y='19' width='12' height='1' fill='%232d1b00'/%3E%3Crect x='10' y='20' width='12' height='6' fill='%23fdf6e3'/%3E%3Crect x='10' y='26' width='12' height='1' fill='%232d1b00'/%3E%3Crect x='10' y='27' width='12' height='4' fill='%232d1b00'/%3E%3Crect x='9' y='7' width='1' height='20' fill='%232d1b00'/%3E%3Crect x='22' y='7' width='1' height='20' fill='%232d1b00'/%3E%3C/g%3E%3C/svg%3E") 8 3, crosshair;
+  }
+
+  a, button, [role="button"] {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg transform='rotate(-25%2C 16%2C 16)'%3E%3Crect x='14' y='1' width='4' height='1' fill='%232d1b00'/%3E%3Crect x='13' y='2' width='6' height='1' fill='%23f4c542'/%3E%3Crect x='12' y='3' width='8' height='2' fill='%23f4c542'/%3E%3Crect x='11' y='5' width='10' height='2' fill='%23f4c542'/%3E%3Crect x='10' y='7' width='12' height='12' fill='%235a8a3c'/%3E%3Crect x='10' y='19' width='12' height='1' fill='%232d1b00'/%3E%3Crect x='10' y='20' width='12' height='6' fill='%23fdf6e3'/%3E%3Crect x='10' y='26' width='12' height='1' fill='%232d1b00'/%3E%3Crect x='10' y='27' width='12' height='4' fill='%232d1b00'/%3E%3Crect x='9' y='7' width='1' height='20' fill='%232d1b00'/%3E%3Crect x='22' y='7' width='1' height='20' fill='%232d1b00'/%3E%3C/g%3E%3C/svg%3E") 8 3, pointer;
+  }
+</style>
