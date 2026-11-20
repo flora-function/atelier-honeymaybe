@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import { getArt } from '../lib/art';
 
-const allArt = await getCollection('art');
+const allArt = await getArt();
 const featured = allArt.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()).slice(0, 3);
 ---
 

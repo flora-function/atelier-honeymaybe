@@ -1,9 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import { getArt } from '../../lib/art';
 
 export async function getStaticPaths() {
-  const art = await getCollection('art');
+  const art = await getArt();
   return art.map(piece => ({
     params: { id: piece.id },
     props: { piece },

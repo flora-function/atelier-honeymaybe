@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import { getArt } from '../lib/art';
 
-const allArt = await getCollection('art');
+const allArt = await getArt();
 const sorted = allArt.sort((a, b) => b.data.date.localeCompare(a.data.date));
 ---
 
