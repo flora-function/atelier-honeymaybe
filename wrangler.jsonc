@@ -1,0 +1,8 @@
+{
+  // Cloudflare Workers static-assets deploy for the Astro site (output of `npm run build`).
+  "name": "atelier-honeymaybe",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist"
+  }
+}
